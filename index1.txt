@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Konsep Fisika Nusantara</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #0284c7 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        .glass-card-solid {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
+            50% { shadow: 0 0 35px rgba(129, 140, 248, 0.7); }
+        }
+        .glow-effect {
+            animation: pulseGlow 3s infinite;
+        }
+        /* Custom animations for dynamic concept SVG graphics */
+        @keyframes moveRight {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0px); }
+        }
+        .animate-moveright { animation: moveRight 3s ease-in-out infinite; }
+        
+        @keyframes waveExpand {
+            0% { r: 10px; opacity: 1; }
+            100% { r: 40px; opacity: 0; }
+        }
+        .animate-wave { animation: waveExpand 2s cubic-bezier(0, 0.2, 0.8, 1) infinite; }
+    </style>
+</head>
+<body class="text-slate-100 flex flex-col min-h-screen selection:bg-cyan-500 selection:text-white">
+
+    <header class="w-full py-4 px-6 border-b border-indigo-500/30 flex justify-between items-center bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                <i class="fa-solid fa-atom text-white text-xl animate-spin" style="animation-duration: 12s;"></i>
+            </div>
+            <div>
+                <h1 class="font-heading font-extrabold text-lg bg-gradient-to-r from-cyan-300 via-sky-200 to-pink-400 bg-clip-text text-transparent">PhysixLab SMA</h1>
+                <p class="text-xs text-cyan-200/70 font-medium">Kuis Intuitif & Konsep Fisika SMA</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div id="code-status-badge" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border border-emerald-500/40 text-[11px] text-emerald-300">
+                <i class="fa-solid fa-key text-amber-400"></i>
+                <span>Sistem Passkey: <strong class="text-emerald-300">Sekali Pakai (One-Time)</strong></span>
+            </div>
+            <button onclick="openLeaderboard()" class="px-4 py-2 rounded-xl bg-indigo-900/60 hover:bg-indigo-800/80 border border-indigo-400/30 text-xs font-semibold transition flex items-center space-x-2 text-cyan-300 shadow-md">
+                <i class="fa-solid fa-trophy text-amber-400"></i>
+                <span class="hidden sm:inline">Papan Skor Top</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
+        
+        <!-- WELCOME SCREEN -->
+        <div id="welcome-screen" class="w-full max-w-2xl glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden text-center">
+            <div class="absolute -right-20 -top-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -bottom-20 w-60 h-60 bg-fuchsia-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 border border-cyan-400/30 text-cyan-200 text-xs font-semibold mb-6 shadow-sm">
+                <i class="fa-solid fa-shield-halved text-cyan-300"></i>
+                <span>Ruang Kuis Terproteksi Kode Akses • 20 Soal Konsep Murni</span>
+            </div>
+
+            <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white">
+                Siap Taklukkan Konsep <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Fisika SMA</span>?
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
+                Eksplorasi hukum-hukum alam semesta secara intuitif dari Mekanika, Termodinamika, Gelombang, Optika hingga Elektromagnetik bersama para tokoh pelopor dunia!
+            </p>
+
+            <div class="mb-8 max-w-md mx-auto text-left bg-slate-900/90 p-5 rounded-2xl border border-indigo-500/30 shadow-inner space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 uppercase tracking-wider mb-2">Nama Kamu / Nickname</label>
+                    <input type="text" id="player-name" placeholder="Contoh: Budi Prasetyo" class="w-full px-4 py-3 rounded-xl bg-slate-950/90 border border-indigo-500/40 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 text-white placeholder-slate-500 text-sm font-medium transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 flex justify-between items-center">
+                        <span>Kode Akses Sekali Pakai</span>
+                        <span class="text-[10px] text-slate-400 font-normal">Default: <strong class="text-amber-300 font-mono">FISIKA2026</strong></span>
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="access-code" placeholder="Masukkan Kode Akses Masuk" class="w-full px-4 py-3 rounded-xl bg-slate-950/90 border border-amber-500/40 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 text-amber-200 placeholder-slate-500 text-sm font-mono tracking-wider transition">
+                        <button type="button" onclick="togglePasscodeVisibility()" class="absolute right-3 top-3 text-slate-400 hover:text-white transition text-sm">
+                            <i id="pass-icon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <p id="name-error" class="text-rose-400 text-xs mt-2 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i><span id="error-msg-text">Isi nama atau nickname kamu dulu ya!</span></p>
+
+                <div id="intruder-alert" class="hidden p-3 rounded-xl bg-rose-950/80 border border-rose-500/60 text-rose-300 text-xs flex items-center space-x-2 animate-bounce">
+                    <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg flex-shrink-0"></i>
+                    <div>
+                        <strong class="block text-rose-200" id="intruder-title">PERINGATAN PENYUSUP DITETAPKAN!</strong>
+                        <span id="intruder-desc">Kode akses salah. Akses ditolak & percobaan dicatat ke log proteksi!</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:from-cyan-400 hover:to-fuchsia-500 text-white font-heading font-extrabold text-base shadow-xl shadow-cyan-500/25 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center space-x-3 mx-auto">
+                <i class="fa-solid fa-key text-amber-300"></i>
+                <span>Verifikasi Kode & Mulai Kuis</span>
+            </button>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" class="w-full max-w-3xl hidden">
+            <!-- Top Bar Info -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4 border border-indigo-500/30">
+                <div class="flex items-center space-x-3">
+                    <div id="pioneer-avatar" class="w-12 h-12 rounded-xl bg-slate-800 border-2 border-cyan-400/50 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                        <!-- Dynamic pioneer image or icon -->
+                    </div>
+                    <div>
+                        <div class="text-xs text-cyan-300 font-semibold" id="pioneer-tag">Dipandu Tokoh Fisika</div>
+                        <h3 class="font-heading font-bold text-sm sm:text-base text-white" id="pioneer-name">Isaac Newton</h3>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-5">
+                    <div class="text-center">
+                        <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Soal</span>
+                        <span class="font-heading font-extrabold text-base sm:text-lg text-white"><span id="current-q">1</span>/<span id="total-q">20</span></span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Skor</span>
+                        <span id="live-score" class="font-heading font-extrabold text-base sm:text-lg text-cyan-400">0</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-slate-950/80 border border-amber-500/40 text-amber-400 font-mono font-bold text-sm shadow-inner">
+                        <i class="fa-solid fa-stopwatch animate-pulse"></i>
+                        <span id="timer-display">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden mb-6 border border-indigo-500/30">
+                <!-- Topic Badge -->
+                <div class="flex justify-between items-center mb-4">
+                    <span id="question-category" class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase tracking-wider border border-cyan-400/40">Mekanika Klasik</span>
+                    <span id="question-difficulty" class="text-xs text-slate-300 font-semibold px-2.5 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-800">Level Konsep</span>
+                </div>
+
+                <!-- Question Text -->
+                <h2 id="question-text" class="font-heading text-lg sm:text-xl font-bold text-white mb-6 leading-relaxed">
+                    Pertanyaan kuis akan dimuat di sini...
+                </h2>
+
+                <!-- Visual Concept Illustration Box -->
+                <div id="visual-concept-box" class="mb-6 rounded-2xl bg-slate-950/80 border border-indigo-500/30 p-4 flex flex-col items-center justify-center relative overflow-hidden min-h-[180px] shadow-inner">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-indigo-500/10 to-fuchsia-500/10"></div>
+                    <div id="visual-content" class="relative z-10 w-full flex flex-col items-center justify-center">
+                        <!-- Dynamic visual SVG illustration injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Options injected via JS -->
+                </div>
+            </div>
+
+            <!-- Explanation Box (Hidden initially, shown after answer) -->
+            <div id="explanation-card" class="hidden glass-card rounded-2xl p-5 border-l-4 border-l-cyan-400 bg-slate-900/95 shadow-xl mb-6 transition-all border-y border-r border-indigo-500/30">
+                <div class="flex items-start space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0 text-cyan-300 mt-0.5 shadow-md">
+                        <i class="fa-solid fa-lightbulb text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-heading font-extrabold text-sm text-cyan-300 mb-1">Penjelasan Konsep Fisika:</h4>
+                        <p id="explanation-text" class="text-slate-200 text-xs sm:text-sm leading-relaxed mb-4 font-medium"></p>
+                        <button onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-cyan-500/20 transition flex items-center space-x-2">
+                            <span>Lanjut Soal Berikutnya</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="w-full max-w-2xl glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden hidden text-center border border-indigo-500/30">
+            <div class="absolute -right-20 -top-20 w-60 h-60 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-500/30 text-white text-3xl animate-float">
+                <i class="fa-solid fa-trophy text-amber-300"></i>
+            </div>
+
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-white mb-2">Kuis Selesai, <span id="result-name" class="text-cyan-300"></span>!</h2>
+            <p class="text-slate-300 text-sm mb-8 font-medium">Kamu telah berhasil menyelesaikan petualangan 20 konsep fisika SMA!</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="glass-card p-4 rounded-2xl border border-indigo-500/30 bg-slate-900/80">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Total Skor</span>
+                    <span id="final-score" class="font-heading font-extrabold text-2xl text-cyan-400">0</span>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-indigo-500/30 bg-slate-900/80">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Akurasi Jawaban</span>
+                    <span id="final-accuracy" class="font-heading font-extrabold text-2xl text-emerald-400">0%</span>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-indigo-500/30 bg-slate-900/80">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Waktu Selesai</span>
+                    <span id="final-time" class="font-heading font-extrabold text-2xl text-amber-400">00:00</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="restartQuiz()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-heading font-bold text-sm shadow-lg shadow-cyan-500/20 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Coba Kuis Lagi</span>
+                </button>
+                <button onclick="openLeaderboard()" class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-heading font-bold text-sm border border-indigo-500/40 transition flex items-center justify-center space-x-2 shadow-md">
+                    <i class="fa-solid fa-crown text-amber-400"></i>
+                    <span>Papan Skor SMA</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- LEADERBOARD MODAL -->
+    <div id="leaderboard-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card-solid w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-indigo-500/40">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-crown text-xl"></i>
+                    </div>
+                    <h3 class="font-heading font-extrabold text-lg text-white">Papan Skor Siswa Teratas</h3>
+                </div>
+                <button onclick="closeLeaderboard()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition border border-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="leaderboard-list" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="mt-6 text-center">
+                <button onclick="closeLeaderboard()" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition border border-slate-700 shadow-md">
+                    Tutup Papan Skor
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // KODE AKSES UTAMA KUIS (Bisa diubah oleh Guru)
+        const MASTER_ACCESS_CODE = "FISIKA2026";
+
+        // Data Bank Kuis 20 Soal Fisika Murni Konseptual Tanpa Hitungan
+        const quizData = [
+            {
+                category: "Mekanika Klasik & Kinematika",
+                difficulty: "Dasar Konsep",
+                pioneer: "Galileo Galilei",
+                pioneerRole: "Bapak Sains Modern & Kinematika",
+                pioneerImg: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-person-chalkboard",
+                question: "Jika sebuah bola dilempar vertikal ke atas di dalam kereta yang bergerak dengan kecepatan konstan (tanpa gesekan dan guncangan), di mana bola tersebut akan jatuh?",
+                visualDesc: "Inersia Gerak Kereta & Bola",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="50" y="40" width="200" height="40" rx="8" fill="#312e81" stroke="#818cf8" stroke-width="2"/>
+                        <circle cx="90" cy="85" r="8" fill="#6366f1"/>
+                        <circle cx="210" cy="85" r="8" fill="#6366f1"/>
+                        <line x1="20" y1="50" x2="40" y2="50" stroke="#818cf8" stroke-width="2" stroke-dasharray="2 2"/>
+                        <path d="M150 40 Q150 10 150 40" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 3"/>
+                        <circle cx="150" cy="15" r="6" fill="#fb7185"/>
+                        <circle cx="150" cy="48" r="5" fill="#e0e7ff"/>
+                    </svg>
+                `,
+                options: [
+                    "Jatuh di belakang tempat pelempar berdiri karena kereta melaju ke depan.",
+                    "Jatuh tepat di tangan pelempar semula karena sifat kelembaman (inersia).",
+                    "Jatuh di depan pelempar karena terdorong angin.",
+                    "Melayang di udara selamanya."
+                ],
+                correct: 1,
+                explanation: "Berdasarkan prinsip Inersia (Hukum I Newton) dan Relativitas Galilei, bola memiliki kecepatan horizontal yang sama dengan kereta saat dilempar. Kereta dan bola bergerak bersamaan sehingga bola jatuh tepat di tangan pelempar."
+            },
+            {
+                category: "Dinamika & Hukum Newton",
+                difficulty: "Konseptual Menengah",
+                pioneer: "Sir Isaac Newton",
+                pioneerRole: "Pelopor Mekanika Universal",
+                pioneerImg: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-apple-whole",
+                question: "Seekor kuda menarik kereta. Menurut Hukum III Newton (Aksi-Reaksi), gaya yang diberikan kuda pada kereta besarnya sama dengan gaya yang diberikan kereta pada kuda. Mengapa kereta tetap dapat bergerak maju?",
+                visualDesc: "Aksi-Reaksi & Resultan Gaya Eksternal",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="45" width="70" height="35" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="60" cy="85" r="7" fill="#0284c7"/>
+                        <circle cx="90" cy="85" r="7" fill="#0284c7"/>
+                        <line x1="110" y1="60" x2="170" y2="60" stroke="#f59e0b" stroke-width="3"/>
+                        <path d="M140 50 L165 50" stroke="#22c55e" stroke-width="2"/>
+                        <path d="M140 70 L115 70" stroke="#ef4444" stroke-width="2"/>
+                        <rect x="170" y="35" width="60" height="45" rx="10" fill="#4338ca" stroke="#a5b4fc" stroke-width="2"/>
+                        <text x="183" y="62" fill="#fff" font-size="12" font-weight="bold">KUDA</text>
+                    </svg>
+                `,
+                options: [
+                    "Karena gaya kuda pada kereta lebih besar daripada gaya kereta pada kuda.",
+                    "Karena gaya gesek tanah pada kaki kuda lebih besar dari gaya tahanan kereta.",
+                    "Pasangan gaya aksi-reaksi bekerja pada benda yang sama sehingga saling menghapus.",
+                    "Karena kereta tidak memiliki massa inersia saat mulai bergerak."
+                ],
+                correct: 1,
+                explanation: "Hukum III Newton bekerja pada dua benda yang BERBEDA. Gaya kuda ke kereta dan kereta ke kuda sama besar. Namun gerak maju ditentukan oleh resultan gaya pada satu benda (kuda mendapat dorongan dari gesekan kaki dengan tanah yang melawan gaya hambat kereta)."
+            },
+            {
+                category: "Usaha dan Energi",
+                difficulty: "Konseptual Lanjutan",
+                pioneer: "James Prescott Joule",
+                pioneerRole: "Pelopor Termodinamika & Energi",
+                pioneerImg: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-fire",
+                question: "Seseorang membawa sebuah koper berat berjalan konstan mendatar sejauh 100 meter di trotoar yang licin. Berapa besar usaha (work) yang dilakukan orang tersebut pada koper?",
+                visualDesc: "Arah Gaya Angkat vs Arah Perpindahan (θ = 90°)",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <line x1="20" y1="85" x2="280" y2="85" stroke="#475569" stroke-width="2"/>
+                        <circle cx="100" cy="30" r="8" fill="#38bdf8"/>
+                        <line x1="100" y1="38" x2="100" y2="65" stroke="#38bdf8" stroke-width="3"/>
+                        <rect x="115" y="50" width="24" height="20" rx="3" fill="#f43f5e" stroke="#fda4af" stroke-width="1.5"/>
+                        <path d="M127 50 L127 25" stroke="#22c55e" stroke-width="3"/>
+                        <polygon points="127,20 122,27 132,27" fill="#22c55e"/>
+                        <path d="M145 60 L195 60" stroke="#eab308" stroke-width="3"/>
+                        <polygon points="200,60 193,55 193,65" fill="#eab308"/>
+                        <text x="135" y="25" fill="#22c55e" font-size="10" font-weight="bold">Gaya (F)</text>
+                        <text x="150" y="52" fill="#eab308" font-size="10" font-weight="bold">Perpindahan (s)</text>
+                    </svg>
+                `,
+                options: [
+                    "Bernilai positif maksimum karena jarak perpindahannya jauh.",
+                    "Bernilai nol (0) karena arah gaya angkat tegak lurus dengan arah perpindahan.",
+                    "Bergantung pada kecepatan orang tersebut berjalan.",
+                    "Bernilai negatif karena melawan gravitasi bumi."
+                ],
+                correct: 1,
+                explanation: "Dalam fisika, usaha didefinisikan sebagai perkalian skalar antara gaya dan perpindahan yang searah. Orang mengangkat koper ke atas (gaya vertikal), sedangkan perpindahan koper mendatar (horizontal). Sudut 90 derajat membuat cos(90°) = 0, sehingga usahanya nol."
+            },
+            {
+                category: "Fluida Statis & Dinamis",
+                difficulty: "Konseptual Intuitif",
+                pioneer: "Archimedes",
+                pioneerRole: "Pelopor Hidrostatika & Gaya Apung",
+                pioneerImg: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-water",
+                question: "Sebuah es batu terapung di dalam gelas berisi air penuh hingga permukaan atasnya pas di bibir gelas. Ketika es tersebut mencair sepenuhnya, apa yang terjadi pada permukaan air di gelas?",
+                visualDesc: "Prinsip Archimedes & Pencairan Es",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M110 20 L120 85 L180 85 L190 20" stroke="#94a3b8" stroke-width="3" fill="none"/>
+                        <rect x="111" y="25" width="78" height="58" fill="#0284c7" fill-opacity="0.5"/>
+                        <rect x="135" y="15" width="30" height="30" rx="4" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+                        <line x1="110" y1="25" x2="190" y2="25" stroke="#38bdf8" stroke-width="2" stroke-dasharray="2 2"/>
+                    </svg>
+                `,
+                options: [
+                    "Air di dalam gelas akan tumpah keluar karena tambahan volume air lelehan es.",
+                    "Permukaan air akan turun karena air es lebih padat.",
+                    "Permukaan air tetap sama persis dan tidak tumpah.",
+                    "Permukaan air menyusut akibat penguapan."
+                ],
+                correct: 2,
+                explanation: "Es yang terapung menggantikan volume air yang beratnya sama dengan berat total es (Prinsip Archimedes). Ketika es mencair, volume air yang dihasilkan sama persis dengan volume bagian es yang tercelup di bawah air sebelumnya. Jadi tinggi air tidak berubah."
+            },
+            {
+                category: "Termodinamika",
+                difficulty: "Hukum Alam",
+                pioneer: "Sadi Carnot",
+                pioneerRole: "Bapak Termodinamika",
+                pioneerImg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-temperature-high",
+                question: "Menurut Hukum Kedua Termodinamika (Entropi), apa yang terjadi secara alami pada tingkat ketidakteraturan (entropi) di alam semesta tertutup?",
+                visualDesc: "Peningkatan Entropi & Ketidakteraturan Molekul",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="20" width="80" height="60" rx="8" fill="#1e1b4b" stroke="#818cf8"/>
+                        <circle cx="65" cy="40" r="4" fill="#a5b4fc"/><circle cx="80" cy="40" r="4" fill="#a5b4fc"/>
+                        <circle cx="65" cy="60" r="4" fill="#a5b4fc"/><circle cx="80" cy="60" r="4" fill="#a5b4fc"/>
+                        <text x="52" y="92" fill="#a5b4fc" font-size="9">Teratur (Awal)</text>
+                        <path d="M135 50 L165 50" stroke="#f43f5e" stroke-width="3"/>
+                        <polygon points="170,50 163,45 163,55" fill="#f43f5e"/>
+                        <rect x="180" y="20" width="80" height="60" rx="8" fill="#311042" stroke="#f43f5e"/>
+                        <circle cx="195" cy="35" r="4" fill="#fb7185"/><circle cx="240" cy="50" r="4" fill="#fb7185"/>
+                        <circle cx="210" cy="70" r="4" fill="#fb7185"/><circle cx="225" cy="30" r="4" fill="#fb7185"/>
+                        <text x="182" y="92" fill="#fb7185" font-size="9">Acak/Entropi Tinggi</text>
+                    </svg>
+                `,
+                options: [
+                    "Entropi selalu bertambah seiring berjalannya waktu secara spontan.",
+                    "Entropi selalu berkurang karena alam selalu menuju kerapian sempurna.",
+                    "Entropi bernilai konstan dan tidak pernah berubah dalam kondisi apapun.",
+                    "Entropi hanya berlaku pada suhu di atas titik didih air."
+                ],
+                correct: 0,
+                explanation: "Hukum kedua termodinamika menyatakan bahwa entropi total dari suatu sistem terisolasi selalu meningkat seiring waktu, menunjukkan bahwa proses alami bersifat irreversibel (tak terbalikkan) dan menuju ketidakteraturan."
+            },
+            {
+                category: "Gelombang & Bunyi",
+                difficulty: "Konseptual Fenomena",
+                pioneer: "Christian Doppler",
+                pioneerRole: "Pelopor Efek Frekuensi Gelombang",
+                pioneerImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-volume-high",
+                question: "Sebuah mobil ambulans dengan sirine menyala bergerak dengan kecepatan tinggi mendekati seorang pejalan kaki yang diam di pinggir jalan. Bagaimana perubahan bunyi yang didengar oleh pejalan kaki tersebut?",
+                visualDesc: "Efek Doppler & Pemampatan Gelombang",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <circle cx="180" cy="50" r="15" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                        <circle cx="170" cy="50" r="28" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                        <circle cx="150" cy="50" r="42" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+                        <rect x="100" y="38" width="50" height="25" rx="4" fill="#dc2626" stroke="#f87171"/>
+                        <circle cx="112" cy="63" r="5" fill="#e2e8f0"/>
+                        <circle cx="138" cy="63" r="5" fill="#e2e8f0"/>
+                        <circle cx="240" cy="45" r="6" fill="#38bdf8"/>
+                        <line x1="240" y1="51" x2="240" y2="70" stroke="#38bdf8" stroke-width="2"/>
+                    </svg>
+                `,
+                options: [
+                    "Frekuensi (nada) terdengar semakin tinggi/melengking saat ambulans mendekat.",
+                    "Frekuensi (nada) terdengar semakin rendah/berat saat ambulans mendekat.",
+                    "Intensitas dan frekuensi bunyi tetap tidak berubah sama sekali.",
+                    "Bunyi sirine tiba-tiba hilang sepenuhnya saat ambulans bergerak."
+                ],
+                correct: 0,
+                explanation: "Ini adalah Efek Doppler. Ketika sumber suara mendekati pengamat, gelombang suara terkompresi sehingga panjang gelombang memendek dan frekuensi (nada) yang diterima terdengar lebih tinggi."
+            },
+            {
+                category: "Optika Geometris & Fisika",
+                difficulty: "Konseptual Cahaya",
+                pioneer: "Ibn Al-Haytham (Alhazen)",
+                pioneerRole: "Pelopor Optika Modern & Metode Ilmiah",
+                pioneerImg: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-sun",
+                question: "Mengapa dasar kolam jernih yang airnya dangkal terlihat tampak lebih dangkal daripada kedalaman aslinya saat dilihat dari udara?",
+                visualDesc: "Refraksi (Pembiasan Cahaya)",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="30" y="45" width="240" height="45" fill="#0284c7" fill-opacity="0.4"/>
+                        <line x1="30" y1="45" x2="270" y2="45" stroke="#38bdf8" stroke-width="2"/>
+                        <line x1="150" y1="15" x2="150" y2="85" stroke="#64748b" stroke-dasharray="3 3"/>
+                        <path d="M110 80 L150 45 L200 15" stroke="#fbbf24" stroke-width="2.5"/>
+                        <circle cx="128" cy="60" r="4" fill="#f43f5e"/>
+                        <text x="50" y="35" fill="#e2e8f0" font-size="10">Udara</text>
+                        <text x="50" y="65" fill="#38bdf8" font-size="10">Air</text>
+                    </svg>
+                `,
+                options: [
+                    "Karena terjadi pemantulan sempurna di dasar kolam.",
+                    "Karena pembiasan cahaya (refraksi) saat merambat dari air yang lebih rapat ke udara yang kurang rapat.",
+                    "Karena penyerapan intensitas cahaya matahari oleh molekul air.",
+                    "Karena efek suhu air yang lebih dingin dari udara."
+                ],
+                correct: 1,
+                explanation: "Fenomena ini disebabkan oleh pembiasan cahaya. Sinar cahaya dari dasar kolam berbelok menjauhi garis normal saat keluar dari air ke udara, membuat mata kita mempersepsikan posisi bayangan dasar kolam lebih dangkal dari aslinya."
+            },
+            {
+                category: "Listrik Statis & Medan",
+                difficulty: "Konseptual Medan",
+                pioneer: "Michael Faraday",
+                pioneerRole: "Pelopor Medan Elektromagnetik",
+                pioneerImg: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-bolt",
+                question: "Mengapa seseorang yang berada di dalam mobil tertutup (rangka besi) sangat aman dari sambaran petir yang sangat kuat saat terjadi badai?",
+                visualDesc: "Prinsip Efek Kandang Faraday",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M150 5 L140 25 L155 25 L145 42" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+                        <rect x="90" y="42" width="120" height="45" rx="12" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+                        <circle cx="95" cy="48" r="3" fill="#ef4444"/><circle cx="205" cy="48" r="3" fill="#ef4444"/>
+                        <circle cx="150" cy="44" r="3" fill="#ef4444"/>
+                        <circle cx="150" cy="60" r="5" fill="#22c55e"/>
+                        <text x="135" y="78" fill="#22c55e" font-size="9" font-weight="bold">E = 0 (Aman)</text>
+                    </svg>
+                `,
+                options: [
+                    "Karena ban karet mobil bertindak sebagai isolator total terhadap petir.",
+                    "Karena muatan listrik petir mengalir di permukaan luar bodi logam mobil (Efek Kandang Faraday).",
+                    "Karena medan magnet bumi menolak aliran listrik petir.",
+                    "Karena udara di dalam mobil menjadi kedap listrik."
+                ],
+                correct: 1,
+                explanation: "Ini adalah prinsip Kandang Faraday (Faraday Cage). Medan listrik statis di dalam konduktor berongga bernilai nol karena muatan berdistribusi di permukaan luar konduktor, melindungi apa pun di dalamnya."
+            },
+            {
+                category: "Magnet & Induksi",
+                difficulty: "Konseptual Interaksi",
+                pioneer: "Hans Christian Ørsted",
+                pioneerRole: "Pelopor Hubungan Kelistrikan & Magnet",
+                pioneerImg: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-magnet",
+                question: "Apa prinsip dasar yang menyebabkan jarum kompas berdefleksi (bergeser) ketika didekatkan pada kawat penghantar yang dialiri arus listrik searah?",
+                visualDesc: "Induksi Medan Magnetik Arus Listrik",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <line x1="30" y1="50" x2="270" y2="50" stroke="#f97316" stroke-width="4"/>
+                        <text x="40" y="40" fill="#f97316" font-size="10" font-weight="bold">Arus Listrik (I) --></text>
+                        <ellipse cx="150" cy="50" rx="25" ry="35" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                        <polygon points="150,20 145,32 155,32" fill="#ef4444"/>
+                        <polygon points="150,44 145,32 155,32" fill="#94a3b8"/>
+                    </svg>
+                `,
+                options: [
+                    "Arus listrik memanaskan jarum kompas sehingga magnetnya melunak.",
+                    "Arus listrik yang mengalir menghasilkan medan magnet melingkar di sekitarnya yang berinteraksi dengan jarum kompas.",
+                    "Kawat penghantar berubah menjadi baterai kecil.",
+                    "Adanya gaya gravitasi tambahan dari aliran elektron."
+                ],
+                correct: 1,
+                explanation: "Eksperimen Ørsted membuktikan bahwa arus listrik (muatan bergerak) menghasilkan medan magnet di sekelilingnya, yang dapat membelokkan arah jarum kompas."
+            },
+            {
+                category: "Rotasi & Momentum Sudut",
+                difficulty: "Konseptual Dinamika Rotasi",
+                pioneer: "Leonhard Euler",
+                pioneerRole: "Pelopor Mekanika Benda Tegar & Matematika Fisika",
+                pioneerImg: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-circle-notch",
+                question: "Seorang penari balet yang sedang berputar cepat dengan tangan merentang tiba-tiba melipat kedua tangannya ke dada. Apa yang terjadi pada kecepatan putaran penari tersebut?",
+                visualDesc: "Kekekalan Momentum Sudut (L = I·ω)",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <g transform="translate(60, 20)">
+                            <circle cx="30" cy="15" r="6" fill="#ec4899"/>
+                            <line x1="5" y1="30" x2="55" y2="30" stroke="#ec4899" stroke-width="3"/>
+                            <text x="5" y="70" fill="#cbd5e1" font-size="9">Tangan Terentang (Lambat)</text>
+                        </g>
+                        <path d="M140 50 L160 50" stroke="#a855f7" stroke-width="2"/>
+                        <g transform="translate(180, 20)">
+                            <circle cx="30" cy="15" r="6" fill="#a855f7"/>
+                            <line x1="20" y1="30" x2="40" y2="30" stroke="#a855f7" stroke-width="5"/>
+                            <path d="M10 20 A 20 20 0 0 1 50 20" stroke="#f43f5e" stroke-width="2" fill="none"/>
+                            <text x="-5" y="70" fill="#f43f5e" font-size="9" font-weight="bold">Folded (Sangat Cepat)</text>
+                        </g>
+                    </svg>
+                `,
+                options: [
+                    "Putaran menjadi jauh lebih lambat karena hambatan udara berkurang.",
+                    "Putaran menjadi jauh lebih cepat karena kekekalan momentum sudut (momen inersia mengecil).",
+                    "Putaran berhenti total seketika.",
+                    "Kecepatan putaran tetap konstan tanpa perubahan."
+                ],
+                correct: 1,
+                explanation: "Berdasarkan Hukum Kekekalan Momentum Sudut (L = I · ω), ketika penari mendekatkan tangan ke sumbu rotasi, momen inersia (I) mengecil, sehingga kecepatan sudut (ω) harus bertambah besar."
+            },
+            {
+                category: "Getaran & Resonansi",
+                difficulty: "Konseptual Gelombang",
+                pioneer: "Hermann von Helmholtz",
+                pioneerRole: "Pelopor Akustika & Fisiologi Pendengaran",
+                pioneerImg: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-wave-square",
+                question: "Mengapa sebuah penyanyi opera dapat memecahkan gelas kaca kristal hanya dengan bernyanyi pada nada tinggi tertentu yang konstan?",
+                visualDesc: "Resonansi Frekuensi Gelombang Suara",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M40 50 Q55 20 70 50 T100 50 T130 50 T160 50" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+                        <path d="M190 25 L200 65 L220 65 L230 25 Z" stroke="#38bdf8" stroke-width="2" fill="none"/>
+                        <path d="M205 35 L215 45 M212 30 L208 50" stroke="#f43f5e" stroke-width="2"/>
+                    </svg>
+                `,
+                options: [
+                    "Karena suara tinggi memiliki suhu yang sangat panas.",
+                    "Karena terjadi peristiwa resonansi ketika frekuensi suara sama persis dengan frekuensi alami getaran gelas, memperbesar amplitudo getaran.",
+                    "Karena tekanan udara dari suara penyanyi menekan gelas secara fisik.",
+                    "Karena gelas kaca mengalami korosi suara."
+                ],
+                correct: 1,
+                explanation: "Resonansi terjadi ketika frekuensi paksaan dari luar sama dengan frekuensi alami sistem. Energi suara ditransfer secara efisien sehingga amplitudo getaran gelas membesar drastis hingga melebihi batas elastisitas kaca."
+            },
+            {
+                category: "Hidrodinamika & Tekanan",
+                difficulty: "Konseptual Fluida",
+                pioneer: "Daniel Bernoulli",
+                pioneerRole: "Pelopor Dinamika Fluida",
+                pioneerImg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-plane",
+                question: "Bagaimana bentuk penampang sayap pesawat terbang (airfoil) dapat menghasilkan gaya angkat ke atas ketika pesawat melaju di udara?",
+                visualDesc: "Prinsip Bernoulli pada Airfoil Sayap",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M80 55 C120 20, 200 45, 220 55 C170 65, 110 60, 80 55 Z" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+                        <path d="M50 30 C120 10, 200 25, 250 30" stroke="#38bdf8" stroke-width="2"/>
+                        <text x="110" y="22" fill="#38bdf8" font-size="9">v Tinggi -> Tekanan Rendah</text>
+                        <path d="M50 75 C120 75, 200 75, 250 75" stroke="#94a3b8" stroke-width="2"/>
+                        <path d="M150 75 L150 25" stroke="#22c55e" stroke-width="3"/>
+                        <polygon points="150,20 145,28 155,28" fill="#22c55e"/>
+                    </svg>
+                `,
+                options: [
+                    "Udara di bagian bawah sayap bergerak lebih cepat sehingga tekanannya lebih besar.",
+                    "Udara di bagian atas sayap melaju lebih cepat sehingga tekanannya lebih rendah daripada di bawah sayap (Prinsip Bernoulli).",
+                    "Sayap pesawat mendorong udara ke bawah seperti kipas angin.",
+                    "Pesawat terangkat karena bobotnya diringankan oleh medan magnet bumi."
+                ],
+                correct: 1,
+                explanation: "Berdasarkan Prinsip Bernoulli, kecepatan fluida yang tinggi berkaitan dengan tekanan statis yang rendah. Bentuk atas sayap melengkung membuat aliran udara di atas lebih cepat daripada di bawah, menciptakan beda tekanan yang mengangkat pesawat ke atas."
+            },
+            {
+                category: "Termodinamika & Kalor",
+                difficulty: "Konseptual Pemindahan",
+                pioneer: "Joseph Black",
+                pioneerRole: "Pelopor Kalorimetri & Panas Laten",
+                pioneerImg: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-fire-burner",
+                question: "Saat siang hari yang terik di pantai, angin bertiup dari arah laut menuju ke darat (Angin Laut). Apa alasan konseptual utama terjadinya fenomena ini?",
+                visualDesc: "Konveksi Udara & Perbedaan Kapasitas Kalor",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="30" y="65" width="120" height="25" fill="#0284c7"/>
+                        <rect x="150" y="65" width="120" height="25" fill="#d97706"/>
+                        <text x="65" y="80" fill="#fff" font-size="10">LAUT (Dingin)</text>
+                        <text x="175" y="80" fill="#fff" font-size="10">DARAT (Panas)</text>
+                        <path d="M210 60 L210 35" stroke="#ef4444" stroke-width="2"/>
+                        <path d="M200 30 L100 30" stroke="#94a3b8" stroke-width="2"/>
+                        <path d="M90 35 L90 60" stroke="#38bdf8" stroke-width="2"/>
+                        <path d="M100 58 L190 58" stroke="#38bdf8" stroke-width="3"/>
+                        <polygon points="195,58 188,54 188,62" fill="#38bdf8"/>
+                    </svg>
+                `,
+                options: [
+                    "Suhu air laut lebih cepat panas daripada daratan pasir di siang hari.",
+                    "Darat lebih cepat panas daripada laut, membuat udara di darat naik (tekanan rendah) dan digantikan udara dingin dari laut.",
+                    "Angin laut disebabkan oleh rotasi bumi yang mendorong air ke daratan.",
+                    "Tekanan udara di laut selalu lebih rendah daripada di pegunungan."
+                ],
+                correct: 1,
+                explanation: "Kapasitas kalor daratan lebih kecil daripada air laut, sehingga daratan lebih cepat panas. Udara di atas daratan memuai, naik ke atas, menciptakan zona bertekanan rendah, sehingga udara sejuk dari laut mengalir menggantikannya."
+            },
+            {
+                category: "Kelistrikan & Rangkaian",
+                difficulty: "Konseptual Arus",
+                pioneer: "Georg Simon Ohm",
+                pioneerRole: "Pelopor Hukum Resistansi Listrik",
+                pioneerImg: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-plug",
+                question: "Jika dua buah bola lampu identik dirangkai secara seri dihubungkan ke sumber tegangan baterai, lalu salah satu lampu filamennya putus, apa yang terjadi pada lampu yang lain?",
+                visualDesc: "Rangkaian Seri Terputus",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="30" width="220" height="50" rx="6" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                        <circle cx="100" cy="30" r="12" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+                        <path d="M95 25 L105 35 M105 25 L95 35" stroke="#f43f5e" stroke-width="2"/>
+                        <circle cx="200" cy="30" r="12" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+                        <rect x="135" y="72" width="30" height="15" fill="#f59e0b" rx="2"/>
+                    </svg>
+                `,
+                options: [
+                    "Lampu yang lain akan menyala jauh lebih terang karena mendapat tegangan ekstra.",
+                    "Lampu yang lain ikut padam total karena jalur aliran arus listrik terputus.",
+                    "Lampu yang lain menyala dengan tingkat kecerahan yang sama.",
+                    "Lampu yang lain berkedip-kedip perlahan."
+                ],
+                correct: 1,
+                explanation: "Dalam rangkaian seri, hanya ada satu jalur tunggal bagi arus listrik untuk mengalir. Jika satu komponen terputus, maka aliran arus terhenti secara keseluruhan, sehingga seluruh lampu dalam rangkaian tersebut akan padam."
+            },
+            {
+                category: "Gravitasi Universal",
+                difficulty: "Konseptual Kosmik",
+                pioneer: "Johannes Kepler",
+                pioneerRole: "Pelopor Hukum Gerakan Planet",
+                pioneerImg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-globe",
+                question: "Mengapa para astronot tampak melayang-layang (mengalami bobot semu nol) di dalam Stasiun Luar Angkasa Internasional (ISS) yang mengorbit bumi?",
+                visualDesc: "Kondisi Jatuh Bebas (Free-Fall) Konstan dalam Orbit",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <circle cx="70" cy="50" r="35" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="70" cy="50" r="65" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                        <rect x="130" y="38" width="18" height="24" fill="#cbd5e1" rx="2"/>
+                        <line x1="120" y1="50" x2="158" y2="50" stroke="#38bdf8" stroke-width="4"/>
+                        <circle cx="210" cy="45" r="7" fill="#f87171"/>
+                        <path d="M210 52 L205 70 M210 52 L215 70" stroke="#f87171" stroke-width="2"/>
+                    </svg>
+                `,
+                options: [
+                    "Karena di ketinggian orbit ISS gaya gravitasi bumi sudah bernilai tepat nol.",
+                    "Karena ISS dan astronot berada dalam kondisi jatuh bebas (free fall) bersama-sama secara terus-menerus mengelilingi bumi.",
+                    "Karena di luar angkasa tidak ada molekul udara sama sekali.",
+                    "Karena baju astronot dirancang khusus menolak gaya gravitasi."
+                ],
+                correct: 1,
+                explanation: "Gravitasi bumi di ketinggian ISS masih sekitar 90% dari permukaan bumi. Astronot melayang bukan karena tidak ada gravitasi, melainkan karena mereka dan stasiun ruang angkasa sedang dalam keadaan jatuh bebas bersama dalam orbit melingkar."
+            },
+            {
+                category: "Induksi Elektromagnetik",
+                difficulty: "Konseptual Hukum Lenz",
+                pioneer: "Heinrich Lenz",
+                pioneerRole: "Pelopor Arah Arus Induksi Magnet",
+                pioneerImg: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-bolt-lightning",
+                question: "Ketika batang magnet didekatkan ke dalam suatu kumparan kawat, timbul arus listrik induksi. Menurut Hukum Lenz, apa arah medan magnet yang dihasilkan oleh arus induksi tersebut?",
+                visualDesc: "Hukum Lenz & Perlawanan Perubahan Fluks",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="35" width="60" height="30" fill="#ef4444" rx="3"/>
+                        <text x="65" y="55" fill="#fff" font-size="12" font-weight="bold">N</text>
+                        <path d="M110 50 L140 50" stroke="#facc15" stroke-width="3"/>
+                        <polygon points="145,50 137,45 137,55" fill="#facc15"/>
+                        <ellipse cx="190" cy="50" rx="15" ry="30" stroke="#38bdf8" stroke-width="3" fill="none"/>
+                        <path d="M190 20 C170 20, 170 80, 190 80" stroke="#818cf8" stroke-width="3" fill="none"/>
+                        <path d="M175 50 L155 50" stroke="#ef4444" stroke-width="2"/>
+                    </svg>
+                `,
+                options: [
+                    "Arah medan magnet induksi selalu memperkuat pergerakan magnet tersebut.",
+                    "Arah medan magnet induksi selalu menolak/melawan perubahan fluks magnet yang menyebabkannya.",
+                    "Arah medan magnet induksi selalu tegak lurus terhadap medan bumi tanpa memedulikan gerakan magnet.",
+                    "Arus induksi tidak menghasilkan medan magnet sama sekali."
+                ],
+                correct: 1,
+                explanation: "Hukum Lenz menyatakan bahwa arus induksi selalu menghasilkan medan magnetik yang arahnya melawan perubahan fluks magnetik utama (penyebabnya). Jika magnet mendekat, medan induksi menolaknya."
+            },
+            {
+                category: "Elastisitas & Tegangan",
+                difficulty: "Konseptual Bahan",
+                pioneer: "Robert Hooke",
+                pioneerRole: "Pelopor Hukum Elastisitas Benda",
+                pioneerImg: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-compress",
+                question: "Sebuah pegas ditarik hingga melampaui 'batas elastisitasnya'. Apa yang terjadi pada pegas tersebut setelah gaya tarik dilepaskan?",
+                visualDesc: "Batas Elastisitas & Deformasi Plastis",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M30 50 Q40 20 50 50 T70 50 T90 50 T110 50" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+                        <text x="35" y="80" fill="#38bdf8" font-size="9">Elastis</text>
+                        <path d="M160 50 L180 30 L200 70 L230 40 L260 50" stroke="#f43f5e" stroke-width="2.5" fill="none"/>
+                        <text x="175" y="80" fill="#f43f5e" font-size="9">Deformasi Permanen</text>
+                    </svg>
+                `,
+                options: [
+                    "Pegas akan kembali sempurna ke bentuk dan panjang semula.",
+                    "Pegas mengalami deformasi permanen dan tidak dapat kembali penuh ke bentuk semulanya.",
+                    "Pegas bertambah lentur dan energi potensialnya hilang menjadi suhu nol.",
+                    "Massa pegas berkurang akibat renggangan molekul."
+                ],
+                correct: 1,
+                explanation: "Jika gaya yang bekerja pada benda elastis melebihi batas elastisitasnya (titik leleh elastis), benda akan memasuki daerah plastis sehingga mengalami perubahan bentuk permanen (deformasi plastis)."
+            },
+            {
+                category: "Gelombang Cahaya & Polarisasi",
+                difficulty: "Konseptual Optika Gelombang",
+                pioneer: "Etienne-Louis Malus",
+                pioneerRole: "Pelopor Cahaya Terpolarisasi",
+                pioneerImg: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-glasses",
+                question: "Kacamata hitam khusus berbahan 'Polaroid' dapat mengurangi kesilauan sinar matahari saat berkendara di siang hari. Bagaimana cara kerja filter polaroid tersebut?",
+                visualDesc: "Penyaringan Orientasi Gelombang Cahaya (Polarisasi)",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <path d="M30 30 L30 70 M20 50 L40 50 M23 33 L37 67" stroke="#facc15" stroke-width="2"/>
+                        <text x="15" y="85" fill="#facc15" font-size="8">Tak Terpolarisasi</text>
+                        <rect x="110" y="20" width="12" height="60" rx="2" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+                        <line x1="116" y1="25" x2="116" y2="75" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 2"/>
+                        <path d="M170 30 L170 70" stroke="#38bdf8" stroke-width="3"/>
+                        <text x="150" y="85" fill="#38bdf8" font-size="8">Tersaring 1 Arah</text>
+                    </svg>
+                `,
+                options: [
+                    "Menyerap semua jenis energi cahaya sehingga pandangan menjadi gelap total.",
+                    "Menyaring dan menyerap getaran gelombang cahaya yang merambat pada arah orientasi tertentu (seperti pantulan horizontal silau).",
+                    "Membiaskan cahaya matahari kembali ke langit.",
+                    "Mempercepat frekuensi getaran cahaya sehingga tidak menyilaukan mata."
+                ],
+                correct: 1,
+                explanation: "Polarisasi adalah peristiwa pembatasan atau penyaringan arah getar gelombang transversal. Filter polaroid menyerap komponen gelombang cahaya yang bergetar searah dengan bidang pantulan silau, sehingga mata melihat lebih nyaman."
+            },
+            {
+                category: "Fluida Statis & Tekanan Hidrostatik",
+                difficulty: "Konseptual Tekanan Kedalaman",
+                pioneer: "Blaise Pascal",
+                pioneerRole: "Pelopor Tekanan Fluida Terisolasi",
+                pioneerImg: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-gauge-high",
+                question: "Seorang penyelam menyelam di laut pada kedalaman 10 meter dan penyelam lainnya menyelam di danau air tawar pada kedalaman 10 meter yang sama. Manakah yang mengalami tekanan hidrostatik lebih besar?",
+                visualDesc: "Massa Jenis Fluida vs Tekanan Hidrostatik",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="20" width="90" height="65" fill="#0284c7" fill-opacity="0.8" rx="4"/>
+                        <text x="50" y="40" fill="#fff" font-size="9" font-weight="bold">LAUT (ρ Lebih Besar)</text>
+                        <circle cx="85" cy="70" r="5" fill="#facc15"/>
+                        <rect x="170" y="20" width="90" height="65" fill="#38bdf8" fill-opacity="0.5" rx="4"/>
+                        <text x="180" y="40" fill="#fff" font-size="9" font-weight="bold">DANAU (ρ Standar)</text>
+                        <circle cx="215" cy="70" r="5" fill="#facc15"/>
+                    </svg>
+                `,
+                options: [
+                    "Penyelam di danau air tawar karena air tawar lebih dingin.",
+                    "Penyelam di laut karena air laut memiliki massa jenis (densitas) lebih besar akibat kandungan garam.",
+                    "Keduanya mengalami tekanan yang sama persis karena kedalamannya sama 10 meter.",
+                    "Tekanan hidrostatik tidak dipengaruhi oleh jenis cairan."
+                ],
+                correct: 1,
+                explanation: "Tekanan hidrostatik dipengaruhi oleh kedalaman, percepatan gravitasi, dan massa jenis cairan ($P = \\rho g h$). Air laut mengandung garam dissolved yang membuat massa jenisnya ($\\rho$) lebih besar dibanding air tawar, sehingga tekanannya lebih tinggi pada kedalaman yang sama."
+            },
+            {
+                category: "Kinetik Gas & Teori Molekul",
+                difficulty: "Konseptual Gas Ideal",
+                pioneer: "Robert Boyle",
+                pioneerRole: "Pelopor Hubungan Tekanan & Volume Gas",
+                pioneerImg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80",
+                pioneerFallbackIcon: "fa-arrows-to-line",
+                question: "Ketika sebuah balon udara tertutup ditekan hingga volumenya menjadi separuh dari ukuran semula pada suhu ruangan konstan, apa yang terjadi pada tekanan udara di dalam balon tersebut?",
+                visualDesc: "Hukum Boyle (Tekanan Berbanding Terbalik dengan Volume)",
+                svgIllustration: `
+                    <svg class="w-full max-w-xs h-28" viewBox="0 0 300 100" fill="none">
+                        <rect x="40" y="20" width="80" height="60" rx="6" stroke="#818cf8" stroke-width="2" fill="#1e1b4b"/>
+                        <circle cx="60" cy="40" r="3" fill="#a5b4fc"/><circle cx="80" cy="60" r="3" fill="#a5b4fc"/><circle cx="95" cy="35" r="3" fill="#a5b4fc"/>
+                        <text x="45" y="90" fill="#a5b4fc" font-size="8">Vol Besar -> Tekanan Rendah</text>
+                        <path d="M135 50 L165 50" stroke="#38bdf8" stroke-width="2"/>
+                        <rect x="180" y="20" width="40" height="60" rx="6" stroke="#f43f5e" stroke-width="2" fill="#311042"/>
+                        <circle cx="190" cy="40" r="3" fill="#fb7185"/><circle cx="205" cy="60" r="3" fill="#fb7185"/><circle cx="200" cy="35" r="3" fill="#fb7185"/>
+                        <text x="170" y="90" fill="#fb7185" font-size="8">Vol Kecil -> Tekanan 2x Lipat</text>
+                    </svg>
+                `,
+                options: [
+                    "Tekanannya menjadi berkurang setengahnya.",
+                    "Tekanannya meningkat menjadi dua kali lipat.",
+                    "Tekanannya bernilai nol karena molekul berhenti bergerak.",
+                    "Tekanannya tetap tidak berubah sama sekali."
+                ],
+                correct: 1,
+                explanation: "Menurut Hukum Boyle, pada suhu konstan, tekanan gas berbanding terbalik dengan volumenya ($P \\propto 1/V$). Jika volume diperkecil menjadi setengah, ruang tumbukan molekul makin sempit sehingga frekuensi tumbukan ke dinding bertambah dua kali lipat (tekanan naik 2x)."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalSeconds = 0;
+        let timerInterval = null;
+        let playerName = "";
+        let userAnswersHistory = [];
+
+        function togglePasscodeVisibility() {
+            const passInput = document.getElementById('access-code');
+            const passIcon = document.getElementById('pass-icon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                passIcon.classList.remove('fa-eye');
+                passIcon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                passIcon.classList.remove('fa-eye-slash');
+                passIcon.classList.add('fa-eye');
+            }
+        }
+
+        function startQuiz() {
+            const nameInput = document.getElementById('player-name');
+            const codeInput = document.getElementById('access-code');
+            const nameError = document.getElementById('name-error');
+            const errorMsgText = document.getElementById('error-msg-text');
+            const intruderAlert = document.getElementById('intruder-alert');
+            const intruderTitle = document.getElementById('intruder-title');
+            const intruderDesc = document.getElementById('intruder-desc');
+
+            // 1. Cek Nama kosong
+            if (!nameInput.value.trim()) {
+                errorMsgText.textContent = "Isi nama atau nickname kamu dulu ya!";
+                nameError.classList.remove('hidden');
+                intruderAlert.classList.add('hidden');
+                return;
+            }
+
+            const inputCode = codeInput.value.trim().toUpperCase();
+
+            // 2. Cek apakah kode sudah pernah dipakai (Single-Use Validation)
+            let usedCodes = JSON.parse(localStorage.getItem('physics_quiz_used_codes') || '[]');
+            if (usedCodes.includes(inputCode)) {
+                errorMsgText.textContent = "Kode akses ini sudah pernah digunakan!";
+                nameError.classList.remove('hidden');
+                intruderTitle.textContent = "KODE AKSES SUDAH HANGUS / EXPIRED!";
+                intruderDesc.textContent = "Kode akses ini bersifat sekali pakai dan sudah digunakan sebelumnya. Minta kode baru ke Guru!";
+                intruderAlert.classList.remove('hidden');
+                return;
+            }
+
+            // 3. Cek Kebenaran Kode Akses
+            if (inputCode !== MASTER_ACCESS_CODE) {
+                errorMsgText.textContent = "Kode akses salah/tidak valid!";
+                nameError.classList.remove('hidden');
+                intruderTitle.textContent = "PERINGATAN PENYUSUP DITETAPKAN!";
+                intruderDesc.textContent = "Kode akses salah. Akses ditolak & percobaan dicatat ke log proteksi!";
+                intruderAlert.classList.remove('hidden');
+
+                // Simpan rekam jejak penyusup ke localStorage log
+                let intruderLogs = JSON.parse(localStorage.getItem('physics_quiz_intruders') || '[]');
+                intruderLogs.push({
+                    name: nameInput.value.trim(),
+                    attemptCode: codeInput.value.trim(),
+                    timestamp: new Date().toLocaleString('id-ID')
+                });
+                localStorage.setItem('physics_quiz_intruders', JSON.stringify(intruderLogs));
+                return;
+            }
+
+            // Tandai kode ini sebagai SUDAH DIPAKAI (Hangus / Single-Use)
+            usedCodes.push(inputCode);
+            localStorage.setItem('physics_quiz_used_codes', JSON.stringify(usedCodes));
+
+            nameError.classList.add('hidden');
+            intruderAlert.classList.add('hidden');
+            playerName = nameInput.value.trim();
+
+            // Reset state
+            currentQuestionIndex = 0;
+            score = 0;
+            totalSeconds = 0;
+            userAnswersHistory = [];
+
+            document.getElementById('live-score').textContent = score;
+            document.getElementById('total-q').textContent = quizData.length;
+
+            // Switch screens
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+
+            // Start timer
+            startTimer();
+
+            // Load first question
+            loadQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            totalSeconds = 0;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                totalSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            let mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            let secs = (totalSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentQuestionIndex];
+            document.getElementById('current-q').textContent = currentQuestionIndex + 1;
+            document.getElementById('question-category').textContent = q.category;
+            document.getElementById('question-difficulty').textContent = q.difficulty;
+            document.getElementById('question-text').textContent = q.question;
+            
+            // Info Pelopor
+            document.getElementById('pioneer-name').textContent = q.pioneer;
+            document.getElementById('pioneer-tag').textContent = q.pioneerRole;
+            
+            const avatarContainer = document.getElementById('pioneer-avatar');
+            avatarContainer.innerHTML = `
+                <img src="${q.pioneerImg}" alt="${q.pioneer}" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'fa-solid ${q.pioneerFallbackIcon} text-indigo-400 text-lg\'></i>';">
+            `;
+
+            // Render Visual Ilustrasi Estetik SVG yang Jelas & Tidak Kumuh
+            const visualContent = document.getElementById('visual-content');
+            visualContent.innerHTML = `
+                <div class="w-full flex flex-col items-center justify-center">
+                    <div class="mb-2">
+                        ${q.svgIllustration}
+                    </div>
+                    <span class="text-xs font-semibold text-indigo-200 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/30 flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-eye text-indigo-400"></i>
+                        <span>Visual Konsep: ${q.visualDesc}</span>
+                    </span>
+                </div>
+            `;
+
+            // Sembunyikan penjelasan
+            document.getElementById('explanation-card').classList.add('hidden');
+
+            // Render opsi pilihan
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-2xl bg-slate-900/80 hover:bg-indigo-950/80 border border-indigo-500/20 hover:border-cyan-400/60 text-slate-200 text-sm sm:text-base font-medium transition flex items-center justify-between group shadow-sm`;
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-xl bg-slate-800 border border-indigo-500/30 flex items-center justify-center text-xs font-bold text-cyan-300 group-hover:bg-cyan-500 group-hover:text-slate-950 transition flex-shrink-0">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span class="leading-relaxed">${opt}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-cyan-400 transition text-xs"></i>
+                `;
+                btn.onclick = () => selectAnswer(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex, selectedBtn) {
+            const q = quizData[currentQuestionIndex];
+            const optionsContainer = document.getElementById('options-container');
+            const buttons = optionsContainer.getElementsByTagName('button');
+
+            // Nonaktifkan semua tombol setelah dipilih
+            for (let b of buttons) {
+                b.disabled = true;
+                b.classList.remove('hover:bg-slate-800/90', 'hover:border-indigo-500/50');
+            }
+
+            const isCorrect = selectedIndex === q.correct;
+            if (isCorrect) {
+                score += 5; // 20 soal x 5 poin = Max 100 poin
+                document.getElementById('live-score').textContent = score;
+                selectedBtn.classList.remove('bg-slate-900/70', 'border-slate-800');
+                selectedBtn.classList.add('bg-emerald-500/20', 'border-emerald-500/60', 'text-emerald-200');
+                selectedBtn.querySelector('span').classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
+            } else {
+                selectedBtn.classList.remove('bg-slate-900/70', 'border-slate-800');
+                selectedBtn.classList.add('bg-rose-500/20', 'border-rose-500/60', 'text-rose-200');
+                selectedBtn.querySelector('span').classList.add('bg-rose-600', 'text-white', 'border-rose-500');
+
+                // Tunjukkan yang benar
+                buttons[q.correct].classList.remove('bg-slate-900/70', 'border-slate-800');
+                buttons[q.correct].classList.add('bg-emerald-500/20', 'border-emerald-500/60', 'text-emerald-200');
+                buttons[q.correct].querySelector('span').classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
+            }
+
+            userAnswersHistory.push({ question: q.question, correct: isCorrect });
+
+            // Tampilkan kotak penjelasan
+            document.getElementById('explanation-text').textContent = q.explanation;
+            document.getElementById('explanation-card').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('result-name').textContent = playerName;
+            document.getElementById('final-score').textContent = score;
+            
+            const correctCount = userAnswersHistory.filter(a => a.correct).length;
+            const accuracy = Math.round((correctCount / quizData.length) * 100);
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+
+            let mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            let secs = (totalSeconds % 60).toString().padStart(2, '0');
+            const timeStr = `${mins}:${secs}`;
+            document.getElementById('final-time').textContent = timeStr;
+
+            // Simpan ke Leaderboard
+            saveToLeaderboard(playerName, score, correctCount, timeStr);
+        }
+
+        function saveToLeaderboard(name, scorePoin, correctCount, time) {
+            let lb = JSON.parse(localStorage.getItem('physics_quiz_leaderboard') || '[]');
+            lb.push({ name: name, score: scorePoin, correct: correctCount, time: time });
+            // Urutkan berdasarkan skor tertinggi, lalu waktu tercepat
+            lb.sort((a, b) => b.score - a.score || a.time.localeCompare(b.time));
+            // Ambil top 10
+            lb = lb.slice(0, 10);
+            localStorage.setItem('physics_quiz_leaderboard', JSON.stringify(lb));
+        }
+
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+            document.getElementById('player-name').value = '';
+        }
+
+        function openLeaderboard() {
+            const modal = document.getElementById('leaderboard-modal');
+            const listContainer = document.getElementById('leaderboard-list');
+            let lb = JSON.parse(localStorage.getItem('physics_quiz_leaderboard') || '[]');
+
+            listContainer.innerHTML = '';
+            if (lb.length === 0) {
+                listContainer.innerHTML = `<p class="text-center text-slate-400 text-xs py-4">Belum ada skor tercatat.</p>`;
+            } else {
+                lb.forEach((item, index) => {
+                    let rankColor = "text-slate-300";
+                    let badgeBg = "bg-slate-800 border-slate-700";
+                    if (index === 0) { rankColor = "text-amber-400 font-bold"; badgeBg = "bg-amber-500/20 border-amber-500/30 text-amber-300"; }
+                    else if (index === 1) { rankColor = "text-slate-200 font-bold"; badgeBg = "bg-slate-400/20 border-slate-400/30 text-slate-200"; }
+                    else if (index === 2) { rankColor = "text-amber-600 font-bold"; badgeBg = "bg-amber-700/20 border-amber-700/30 text-amber-500"; }
+
+                    const row = document.createElement('div');
+                    row.className = `flex items-center justify-between p-3 rounded-2xl bg-slate-900/60 border border-slate-800`;
+                    row.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-xl ${badgeBg} border flex items-center justify-center text-xs font-bold">
+                                #${index + 1}
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-semibold text-sm text-white">${item.name}</h4>
+                                <span class="text-[10px] text-slate-400"><i class="fa-solid fa-clock mr-1"></i>Waktu: ${item.time}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-heading font-extrabold text-cyan-400 text-sm">${item.score} Poin</span>
+                            <span class="block text-[10px] text-slate-400">(${item.correct}/${quizData.length} Benar)</span>
+                        </div>
+                    `;
+                    listContainer.appendChild(row);
+                });
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeLeaderboard() {
+            document.getElementById('leaderboard-modal').classList.add('hidden');
+        }
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Konsep Fisika SMA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-btn {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 30px rgba(129, 140, 248, 0.7);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col justify-between items-center">
+
+    <div class="max-w-4xl w-full mx-auto">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 p-4 glass-card rounded-2xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-xl shadow-lg">
+                    ⚡
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                        FisikaKonsep SMA
+                    </h1>
+                    <p class="text-xs text-slate-400">20 Soal Pemahaman Murni Tanpa Hitungan</p>
+                </div>
+            </div>
+            <div id="quiz-status" class="hidden flex items-center gap-4 text-sm">
+                <div class="bg-indigo-950/80 border border-indigo-500/30 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-stopwatch text-cyan-400"></i>
+                    <span id="timer-display" class="font-mono font-bold text-cyan-300">00:00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <main id="app-container">
+            
+            <!-- SECTION 1: ACCESS & START FORM -->
+            <div id="start-screen" class="glass-card p-6 md:p-10 rounded-3xl text-center space-y-6">
+                <div class="inline-block p-4 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-3xl mb-2">
+                    ⚛️
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Selamat Datang di Kuis Konsep Fisika</h2>
+                <p class="text-slate-300 text-sm md:text-base max-w-xl mx-auto">
+                    Kuis ini menguji logika dan pemahaman dasar konsep fisika dari para pelopor dunia. 
+                    <span class="text-cyan-400 font-semibold">Setiap kode hanya bisa digunakan 1 kali pengerjaan.</span>
+                </p>
+
+                <div class="max-w-md mx-auto space-y-4 text-left">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Nama Siswa</label>
+                        <input type="text" id="input-name" placeholder="Masukkan nama lengkap..." 
+                            class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kode Akses Kuis (One-Time Passkey)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="input-code" placeholder="Contoh: FISIKA2026" 
+                                class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-cyan-300 font-mono tracking-widest focus:outline-none focus:border-indigo-500 transition">
+                        </div>
+                    </div>
+
+                    <!-- Alert Box for Expired or Intruder Codes -->
+                    <div id="access-alert" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-circle-exclamation text-base"></i>
+                        <span id="access-alert-msg"></span>
+                    </div>
+
+                    <button onclick="validateAndStart()" class="w-full glow-btn bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-bold py-3.5 rounded-xl transition">
+                        🚀 Mulai Eksplorasi Kuis
+                    </button>
+                </div>
+
+                <!-- Teacher Passcode Generator Section -->
+                <div class="pt-6 border-t border-slate-700/50 max-w-md mx-auto">
+                    <div class="bg-slate-900/50 p-4 rounded-2xl border border-slate-800 space-y-3">
+                        <p class="text-xs text-slate-400 font-medium">Fitur Khusus Guru / Pembuat Kuis:</p>
+                        <button onclick="generateNewPasscode()" class="w-full bg-indigo-950 hover:bg-indigo-900 border border-indigo-700/50 text-indigo-300 text-xs py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-key text-cyan-400"></i> Buat Kode Akses Baru
+                        </button>
+                        <div id="new-code-display" class="hidden p-2.5 bg-indigo-900/30 rounded-xl border border-indigo-500/30 text-center">
+                            <span class="text-xs text-slate-300">Kode Baru Anda: </span>
+                            <span id="generated-code" class="font-mono font-bold text-cyan-300 text-sm tracking-widest"></span>
+                            <p class="text-[10px] text-slate-400 mt-1">Salin kode ini dan berikan ke murid Anda!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: QUIZ INTERACTIVE AREA -->
+            <div id="quiz-screen" class="hidden space-y-6">
+                <!-- Question Header -->
+                <div class="glass-card p-6 rounded-3xl space-y-4">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+                        <span id="question-number" class="text-indigo-400">Soal 1 dari 20</span>
+                        <span id="question-pioneer" class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30">Tokoh: Isaac Newton</span>
+                    </div>
+                    
+                    <!-- SVG Visual Container -->
+                    <div id="visual-container" class="w-full h-44 bg-slate-900/90 rounded-2xl border border-slate-800 flex items-center justify-center p-4">
+                        <!-- Dynamic SVG Visual Injected Here -->
+                    </div>
+
+                    <h3 id="question-text" class="text-lg md:text-xl font-bold text-white leading-relaxed">
+                        <!-- Question Text Injected Here -->
+                    </h3>
+                </div>
+
+                <!-- Options -->
+                <div id="options-container" class="grid grid-cols-1 gap-3">
+                    <!-- Option Buttons Injected Here -->
+                </div>
+            </div>
+
+            <!-- SECTION 3: RESULT SCREEN -->
+            <div id="result-screen" class="hidden glass-card p-8 rounded-3xl text-center space-y-6">
+                <div class="text-5xl">🏆</div>
+                <h2 class="text-3xl font-bold text-white">Kuis Selesai!</h2>
+                <p id="result-user-info" class="text-slate-300"></p>
+
+                <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+                        <div class="text-xs text-slate-400 mb-1">Skor Akhir</div>
+                        <div id="final-score" class="text-3xl font-extrabold text-cyan-400">0</div>
+                    </div>
+                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+                        <div class="text-xs text-slate-400 mb-1">Waktu Tempuh</div>
+                        <div id="final-time" class="text-3xl font-extrabold text-indigo-400">0s</div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800">
+                    <button onclick="location.reload()" class="glow-btn bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-3 rounded-xl transition">
+                        Kembali ke Halaman Utama
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // 20 Full Conceptual Physics Questions without calculations
+        const quizData = [
+            {
+                pioneer: "Isaac Newton",
+                text: "Menurut Hukum I Newton (Inersia), apa yang terjadi pada sebuah benda yang bergerak meluncur di ruang hampa udara tanpa gesekan?",
+                options: [
+                    "Benda akan perlahan-lahan berhenti dengan sendirinya.",
+                    "Benda akan terus bergerak dengan kecepatan konstan secara beraturan.",
+                    "Benda membutuhkan gaya terus-menerus agar tetap bergerak.",
+                    "Benda akan berbelok secara acak."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="40" cy="50" r="15" fill="#6366f1"/><path d="M60 50 L160 50" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5 5"/><polygon points="160,45 170,50 160,55" fill="#38bdf8"/><text x="40" y="85" fill="#94a3b8" font-size="10" text-anchor="middle">v = konstan</text></svg>`
+            },
+            {
+                pioneer: "Galileo Galilei",
+                text: "Jika sebutir bola besi dan selembar bulu ayam dijatuhkan bersamaan dari ketinggian yang sama di dalam tabung hampa udara, mana yang akan menyentuh tanah terlebih dahulu?",
+                options: [
+                    "Bola besi karena massanya jauh lebih berat.",
+                    "Bulu ayam karena gaya gesek udaranya lebih kecil.",
+                    "Keduanya jatuh bersamaan dan menyentuh tanah di waktu yang sama.",
+                    "Bola besi melayang, sedangkan bulu ayam jatuh lebih dulu."
+                ],
+                correct: 2,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="70" cy="30" r="10" fill="#cbd5e1"/><path d="M130 20 C125 35 135 40 130 50" stroke="#f43f5e" stroke-width="3" fill="none"/><line x1="10" y1="85" x2="190" y2="85" stroke="#475569" stroke-width="4"/><text x="100" y="95" fill="#38bdf8" font-size="9" text-anchor="middle">Ruang Hampa Udara</text></svg>`
+            },
+            {
+                pioneer: "Archimedes",
+                text: "Sebuah kapal besi yang sangat berat dapat mengapung di lautan, sedangkan sebutir paku besi tenggelam. Mengapa demikian?",
+                options: [
+                    "Massa kapal lebih ringan daripada massa paku.",
+                    "Kapal memiliki rongga udara sehingga volume totalnya besar dan massa jenis rata-ratanya lebih kecil dari air.",
+                    "Air laut mengandung garam yang menolak logam besar.",
+                    "Gaya gravitasi tidak bekerja pada benda berongga."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M0 60 Q50 55 100 60 T200 60 L200 100 L0 100 Z" fill="#0284c7" opacity="0.6"/><path d="M50 55 L70 75 L130 75 L150 55 Z" fill="#64748b"/><text x="100" y="45" fill="#38bdf8" font-size="10" text-anchor="middle">F_apung = W_cair</text></svg>`
+            },
+            {
+                pioneer: "James Prescott Joule",
+                text: "Manakah pernyataan yang paling tepat mengenai Hukum Kekekalan Energi?",
+                options: [
+                    "Energi dapat diciptakan oleh mesin yang sangat canggih.",
+                    "Energi akan musnah total ketika digunakan oleh lampu.",
+                    "Energi tidak dapat diciptakan atau dimusnahkan, hanya dapat berubah bentuk.",
+                    "Energi potensial selalu lebih besar daripada energi kinetik."
+                ],
+                correct: 2,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="50" cy="50" r="20" fill="#eab308"/><path d="M80 50 L120 50" stroke="#f97316" stroke-width="3" marker-end="url(#arrow)"/><circle cx="150" cy="50" r="20" fill="#ef4444"/><text x="100" y="35" fill="#cbd5e1" font-size="9" text-anchor="middle">Konversi Energi</text></svg>`
+            },
+            {
+                pioneer: "Sadi Carnot",
+                text: "Menurut Hukum II Termodinamika, mengapa tidak pernah ada mesin kalor ideal yang memiliki efisiensi 100%?",
+                options: [
+                    "Karena gesekan pada mesin selalu membakar bahan bakar.",
+                    "Karena sebagian energi panas selalu terbuang ke lingkungan (reservoir dingin).",
+                    "Karena suhu reservoir panas tidak pernah cukup tinggi.",
+                    "Karena bahan bakar tidak dapat terbakar sempurna."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><rect x="70" y="10" width="60" height="25" rx="5" fill="#ef4444"/><rect x="70" y="65" width="60" height="25" rx="5" fill="#3b82f6"/><path d="M100 35 L100 65" stroke="#f59e0b" stroke-width="3"/><text x="100" y="27" fill="#fff" font-size="9" text-anchor="middle">T_Tinggi</text><text x="100" y="82" fill="#fff" font-size="9" text-anchor="middle">T_Rendah</text></svg>`
+            },
+            {
+                pioneer: "Christian Doppler",
+                text: "Saat mobil ambulans bergerak mendekati Anda sambil membunyikan sirine, frekuensi nada sirine yang Anda dengar terasa lebih tinggi. Fenomena ini disebut...",
+                options: [
+                    "Efek Fotolistrik",
+                    "Efek Doppler",
+                    "Resonansi Gelombang",
+                    "Interferensi Kuantum"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M30 50 Q40 30 50 50 T70 50 T90 50" fill="none" stroke="#38bdf8" stroke-width="2"/><circle cx="140" cy="50" r="12" fill="#ef4444"/><text x="140" y="54" fill="#fff" font-size="8" text-anchor="middle">Ambulans</text></svg>`
+            },
+            {
+                pioneer: "Ibn al-Haytham (Alhazen)",
+                text: "Ketika sebatang pensil dimasukkan sebagian ke dalam gelas berisi air bening, pensil terlihat patah atau bengkok. Hal ini terjadi karena peristiwa...",
+                options: [
+                    "Pemantulan Sempurna (Refleksi)",
+                    "Pembiasan Cahaya (Refraksi)",
+                    "Lenturan Cahaya (Difraksi)",
+                    "Penyerapan Cahaya (Absorpsi)"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><rect x="40" y="40" width="120" height="50" fill="#0284c7" opacity="0.4"/><line x1="80" y1="10" x2="100" y2="40" stroke="#f59e0b" stroke-width="4"/><line x1="100" y1="40" x2="110" y2="80" stroke="#f59e0b" stroke-width="4"/></svg>`
+            },
+            {
+                pioneer: "Michael Faraday",
+                text: "Prinsip utama yang mendasari kerja generator listrik hingga menghasilkan arus listrik adalah...",
+                options: [
+                    "Perubahan medan magnet yang menembus kumparan kawat (Induksi Elektromagnetik).",
+                    "Gesekan langsung antara dua jenis logam berbeda.",
+                    "Pemanasan kawat konduktor hingga bersuhu sangat tinggi.",
+                    "Penumpukan muatan statis pada permukaan insulator."
+                ],
+                correct: 0,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><rect x="40" y="30" width="30" height="40" fill="#ef4444"/><rect x="130" y="30" width="30" height="40" fill="#3b82f6"/><path d="M70 50 Q100 20 130 50" stroke="#a855f7" stroke-width="2" stroke-dasharray="3 3" fill="none"/></svg>`
+            },
+            {
+                pioneer: "Hans Christian Ørsted",
+                text: "Penemuan penting Ørsted menunjukkan bahwa di sekitar kawat yang dialiri arus listrik akan timbul...",
+                options: [
+                    "Medan Gravitasi",
+                    "Medan Magnetik",
+                    "Gelombang Bunyi Ultraviolat",
+                    "Gaya Gesek Udara"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><line x1="100" y1="10" x2="100" y2="90" stroke="#eab308" stroke-width="6"/><ellipse cx="100" cy="50" rx="30" ry="12" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="4 4"/></svg>`
+            },
+            {
+                pioneer: "Daniel Bernoulli",
+                text: "Menurut Hukum Bernoulli, apa yang terjadi pada tekanan fluida jika kecepatan aliran fluida tersebut meningkat pesat?",
+                options: [
+                    "Tekanan fluida akan menjadi semakin besar.",
+                    "Tekanan fluida akan menurun.",
+                    "Tekanan fluida tidak berubah sama sekali.",
+                    "Fluida langsung berubah menjadi padat."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M20 30 L80 30 L120 45 L180 45 L180 65 L120 65 L80 70 L20 70 Z" fill="#0369a1"/></svg>`
+            },
+            {
+                pioneer: "Joseph Black",
+                text: "Jika dua benda bersuhu beda dicampurkan di dalam sistem terisolasi, kalor akan mengalir dari...",
+                options: [
+                    "Benda bersuhu rendah ke benda bersuhu tinggi.",
+                    "Benda bersuhu tinggi ke benda bersuhu rendah hingga mencapai kesetimbangan termal.",
+                    "Benda bermassa lebih kecil ke benda bermassa lebih besar.",
+                    "Benda berwujud cair ke benda berwujud padat."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="60" cy="50" r="25" fill="#ef4444"/><circle cx="140" cy="50" r="25" fill="#3b82f6"/><path d="M90 50 L110 50" stroke="#f59e0b" stroke-width="4"/></svg>`
+            },
+            {
+                pioneer: "Georg Ohm",
+                text: "Berdasarkan Hukum Ohm, jika hambatan suatu rangkaian listrik diperbesar sementara tegangannya tetap, maka kuat arus listrik akan...",
+                options: [
+                    "Meningkat drastis",
+                    "Mengecil/Menurun",
+                    "Tetap sama",
+                    "Menjadi nol serta merta"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M30 50 L70 50 L75 35 L85 65 L95 35 L105 65 L110 50 L170 50" stroke="#ec4899" stroke-width="3" fill="none"/></svg>`
+            },
+            {
+                pioneer: "Johannes Kepler",
+                text: "Menurut Hukum I Kepler, lintasan orbit planet-planet saat mengelilingi Matahari berbentuk...",
+                options: [
+                    "Lingkaran Sempurna",
+                    "Ellips dengan Matahari berada pada salah satu titik fokusnya",
+                    "Garis Lurus Segi Empat",
+                    "Spiral tak terhingga"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><ellipse cx="100" cy="50" rx="70" ry="35" fill="none" stroke="#6366f1" stroke-width="2"/><circle cx="70" cy="50" r="10" fill="#eab308"/><circle cx="170" cy="50" r="5" fill="#38bdf8"/></svg>`
+            },
+            {
+                pioneer: "Heinrich Lenz",
+                text: "Hukum Lenz menyatakan bahwa arah arus induksi elektromagnetik selalu...",
+                options: [
+                    "Sejalan dengan perubahan medan magnet pemicunya.",
+                    "Menghasilkan medan magnet yang melawan arah perubahan medan magnet pemicunya.",
+                    "Menuju ke pusat bumi.",
+                    "Sama dengan arah gaya gravitasi."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="100" cy="50" r="30" fill="none" stroke="#a855f7" stroke-width="4"/><path d="M100 20 L95 25 M100 20 L105 25" stroke="#a855f7" stroke-width="3"/></svg>`
+            },
+            {
+                pioneer: "Robert Hooke",
+                text: "Hukum Hooke berlaku pada benda elastis (seperti pegas). Apa yang terjadi jika pegas ditarik melebihi batas elastisitasnya?",
+                options: [
+                    "Pegas akan langsung kehilangan massanya.",
+                    "Pegas mengalami deformasi permanen dan tidak dapat kembali ke bentuk semula.",
+                    "Pegas menjadi dua kali lebih lentur dari sebelumnya.",
+                    "Pegas akan terus memanjang tanpa putus."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M20 50 Q30 20 40 50 T60 50 T80 50 T100 50 T120 50 T140 50 T180 50" fill="none" stroke="#10b981" stroke-width="3"/></svg>`
+            },
+            {
+                pioneer: "Étienne-Louis Malus",
+                text: "Polarisasi cahaya adalah fenomena terbuktinya bahwa cahaya merupakan gelombang...",
+                options: [
+                    "Longitudinal",
+                    "Transversal",
+                    "Stasioner Angin",
+                    "Mekanik Bunyi"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M20 50 Q35 20 50 50 T80 50 T110 50" fill="none" stroke="#f43f5e" stroke-width="3"/><rect x="110" y="25" width="6" height="50" fill="#38bdf8"/></svg>`
+            },
+            {
+                pioneer: "Blaise Pascal",
+                text: "Prinsip Hukum Pascal pada rem hidrolik memanfaatkan sifat fluida dalam ruangan tertutup, yaitu...",
+                options: [
+                    "Tekanan yang diberikan akan diteruskan ke segala arah dengan sama besar.",
+                    "Massa jenis cairan akan berubah drastis saat ditekan.",
+                    "Cairan akan menyerap seluruh gaya tanpa mengalir.",
+                    "Cairan menguap menjadi gas secara spontan."
+                ],
+                correct: 0,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><path d="M40 30 L40 70 L160 70 L160 30" fill="none" stroke="#64748b" stroke-width="6"/><rect x="42" y="50" width="116" height="18" fill="#0284c7"/></svg>`
+            },
+            {
+                pioneer: "Robert Boyle",
+                text: "Jika gas ideal di dalam wadah tertutup dijaga pada suhu konstan (Isotermal), lalu volumenya diperkecil menjadi setengahnya, maka tekannya akan...",
+                options: [
+                    "Menjadi dua kali lipat lebih besar.",
+                    "Menjadi setengah dari semula.",
+                    "Turun menjadi nol.",
+                    "Tetap sama tidak berpengaruh."
+                ],
+                correct: 0,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><rect x="70" y="20" width="60" height="60" fill="none" stroke="#cbd5e1" stroke-width="3"/><line x1="70" y1="40" x2="130" y2="40" stroke="#ef4444" stroke-width="4"/></svg>`
+            },
+            {
+                pioneer: "Hermann von Helmholtz",
+                text: "Gelombang bunyi memerlukan medium (seperti udara, air, atau padatan) untuk merambat karena bunyi merupakan gelombang...",
+                options: [
+                    "Elektromagnetik",
+                    "Mekanik",
+                    "Transversal Hampa",
+                    "Foton"
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="50" cy="50" r="10" fill="#eab308"/><path d="M70 35 A25 25 0 0 1 70 65" fill="none" stroke="#38bdf8" stroke-width="3"/><path d="M85 25 A40 40 0 0 1 85 75" fill="none" stroke="#38bdf8" stroke-width="3"/></svg>`
+            },
+            {
+                pioneer: "Isaac Newton",
+                text: "Mengapa Bulan tetap setia mengorbit Bumi dan tidak terlempar lurus keluar ke luar angkasa?",
+                options: [
+                    "Bulan diikat oleh atmosfer bumi.",
+                    "Adanya gaya sentripetal yang bersumber dari Gaya Gravitasi Bumi.",
+                    "Bulan memiliki dorongan roket alami.",
+                    "Hampa udara mendorong Bulan masuk ke dalam."
+                ],
+                correct: 1,
+                svg: `<svg class="w-full h-full max-h-36" viewBox="0 0 200 100"><circle cx="100" cy="50" r="22" fill="#3b82f6"/><circle cx="160" cy="50" r="8" fill="#94a3b8"/><path d="M152 50 L125 50" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrow)"/></svg>`
+            }
+        ];
+
+        // System State
+        let currentQuestion = 0;
+        let score = 0;
+        let seconds = 0;
+        let timer = null;
+        let userName = "";
+
+        // Memory Key for Used Passcodes
+        const USED_CODES_KEY = "physics_quiz_used_codes";
+
+        function getUsedCodes() {
+            const data = localStorage.getItem(USED_CODES_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveUsedCode(code) {
+            const used = getUsedCodes();
+            used.push(code.toUpperCase());
+            localStorage.setItem(USED_CODES_KEY, JSON.stringify(used));
+        }
+
+        // Generate New One-Time Code for Teachers
+        function generateNewPasscode() {
+            const randomCode = "FISIKA-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+            document.getElementById('generated-code').innerText = randomCode;
+            document.getElementById('new-code-display').classList.remove('hidden');
+        }
+
+        // Start Validation
+        function validateAndStart() {
+            const nameInput = document.getElementById('input-name').value.trim();
+            const codeInput = document.getElementById('input-code').value.trim().toUpperCase();
+            const alertBox = document.getElementById('access-alert');
+            const alertMsg = document.getElementById('access-alert-msg');
+
+            if (!nameInput) {
+                alertMsg.innerText = "Silakan masukkan nama Anda terlebih dahulu!";
+                alertBox.classList.remove('hidden');
+                return;
+            }
+
+            if (!codeInput) {
+                alertMsg.innerText = "Masukkan Kode Akses Kuis!";
+                alertBox.classList.remove('hidden');
+                return;
+            }
+
+            const usedCodes = getUsedCodes();
+
+            if (usedCodes.includes(codeInput)) {
+                alertMsg.innerText = "KODE SUDAH KADALUARSA / PERNAH DIPAKAI! Klik 'Buat Kode Baru' di bawah.";
+                alertBox.classList.remove('hidden');
+                return;
+            }
+
+            // Valid passkey check (Default or generated)
+            if (codeInput === "FISIKA2026" || codeInput.startsWith("FISIKA-")) {
+                saveUsedCode(codeInput); // Mark as used
+                userName = nameInput;
+                alertBox.classList.add('hidden');
+                startQuiz();
+            } else {
+                alertMsg.innerText = "KODE AKSES SALAH / TIDAK TERDAFTAR!";
+                alertBox.classList.remove('hidden');
+            }
+        }
+
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-status').classList.remove('hidden');
+
+            timer = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const secs = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            document.getElementById('question-number').innerText = `Soal ${currentQuestion + 1} dari ${quizData.length}`;
+            document.getElementById('question-pioneer').innerText = `Tokoh: ${q.pioneer}`;
+            document.getElementById('visual-container').innerHTML = q.svg;
+            document.getElementById('question-text').innerText = q.text;
+
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-4 rounded-2xl bg-slate-900/60 hover:bg-indigo-900/40 border border-slate-800 hover:border-indigo-500/50 text-slate-200 text-sm md:text-base transition flex items-center gap-3';
+                btn.innerHTML = `<span class="w-7 h-7 rounded-lg bg-indigo-950 border border-indigo-500/30 flex items-center justify-center font-bold text-xs text-indigo-400">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
+                btn.onclick = () => selectOption(idx);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(index) {
+            if (index === quizData[currentQuestion].correct) {
+                score += 5; // 20 questions * 5 = 100 points
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('quiz-status').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('result-user-info').innerText = `Kerja bagus, ${userName}! Anda telah menyelesaikan kuis pemahaman fisika.`;
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-time').innerText = `${seconds}s`;
+        }
+    </script>
+</body>
+</html>
